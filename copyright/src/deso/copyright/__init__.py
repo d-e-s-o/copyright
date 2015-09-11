@@ -19,10 +19,15 @@
 
 """A module for automated handling of copyright file headers."""
 
+from deso.copyright.normalize import (
+  normalizeContent,
+  normalizeFiles,
+)
 from deso.copyright.range import (
   Range,
 )
 from deso.copyright.ranges import (
   normalizeRanges,
   parseRanges,
+  stringifyRanges,
 )

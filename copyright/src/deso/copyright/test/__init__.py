@@ -31,6 +31,7 @@ from unittest import (
 def allTests():
   """Retrieve a test suite containing all tests."""
   tests = [
+    "testNormalize.py",
     "testRange.py",
     "testRanges.py",
   ]

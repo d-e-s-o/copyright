@@ -73,3 +73,8 @@ def normalizeRanges(ranges):
         i -= 1
     else:
       i -= 1
+
+
+def stringifyRanges(ranges):
+  """Convert a list of ranges into a string."""
+  return RANGES_SEPARATOR.join(map(str, ranges))
