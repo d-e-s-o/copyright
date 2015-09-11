@@ -68,5 +68,16 @@ class TestRange(TestCase):
     self.assertFalse(2016 in Range(2013, 2015))
 
 
+  def testExtensionCheck(self):
+    """Verify that checking if a year extends a range works properly."""
+    self.assertTrue(Range(2013, 2014).extendedBy(2015))
+
+
+  def testNoExtension(self):
+    """Negative test for the extension check functionality."""
+    self.assertFalse(Range(2013, 2014).extendedBy(2016))
+    self.assertFalse(Range(2013, 2014).extendedBy(2012))
+
+
 if __name__ == "__main__":
   main()

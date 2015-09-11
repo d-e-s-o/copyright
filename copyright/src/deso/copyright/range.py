@@ -52,3 +52,14 @@ class Range(namedtuple("Range", ["first", "last"])):
   def __contains__(self, year):
     """Check whether a year is contained in a range."""
     return self.first <= year and year <= self.last
+
+
+  def extendedBy(self, year):
+    """Check whether a year extends a given range.
+
+      Note that for simplicity only upper extension is considered, that is, a
+      year smaller than the given range is never considered to extend it. By
+      only working on a sorted list of years this property can be satisfied
+      trivially.
+    """
+    return year == self.last + 1
