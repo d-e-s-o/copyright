@@ -24,6 +24,10 @@ from collections import (
 )
 
 
+# The character separating two years in a range.
+YEAR_SEPARATOR = "-"
+
+
 class Range(namedtuple("Range", ["first", "last"])):
   """A class representing a time span between (but including) to years.
 
@@ -46,7 +50,7 @@ class Range(namedtuple("Range", ["first", "last"])):
     if self.first == self.last:
       return "%d" % self.first
     else:
-      return "%d-%d" % self
+      return "%d%s%d" % (self.first, YEAR_SEPARATOR, self.last)
 
 
   def __contains__(self, year):
@@ -63,3 +67,25 @@ class Range(namedtuple("Range", ["first", "last"])):
       trivially.
     """
     return year == self.last + 1
+
+
+  @staticmethod
+  def parse(string):
+    """Parse a range from a string."""
+    try:
+      # A range of years can be represented in two ways. If it is a single
+      # year, we can convert it into an integer directly.
+      year = int(string)
+      return Range(year, year)
+    except ValueError:
+      # If this cast did not work we must have gotten a "true" range, e.g.,
+      # 2010-2012.
+      try:
+         # We might not have enough elements in the list, too many, or we might
+         # again fail to convert them to integers. In any case a ValueError is
+         # raised.
+        first, last = list(map(int, string.split(YEAR_SEPARATOR)))
+      except ValueError:
+        raise ValueError("Not a valid range: \"%s\"" % string)
+
+      return Range(first, last)

@@ -79,5 +79,37 @@ class TestRange(TestCase):
     self.assertFalse(Range(2013, 2014).extendedBy(2012))
 
 
+  def testRangeParsing(self):
+    """Verify that we can correctly parse ranges."""
+    self.assertEqual(Range.parse("2014"), Range(2014, 2014))
+    self.assertEqual(Range.parse("2014-2015"), Range(2014, 2015))
+    self.assertEqual(Range.parse("2013-2015"), Range(2013, 2015))
+
+
+  def testRangeParsingError(self):
+    """Verify that we can parsing invalid range strings fails properly."""
+    regex = r"Not a valid range"
+
+    def fail(rangeString):
+      """Verify that parsing of a range string fails as expected."""
+      with self.assertRaisesRegex(ValueError, regex):
+        Range.parse(rangeString)
+
+    fail("x")
+    fail("2013,2014-2015")
+    fail("2012-2013,2015")
+    fail("2012-2013x")
+    fail("2012x-2013")
+    fail("2012-2013-2014")
+
+
+  def testRangeParsingFailsCreation(self):
+    """Verify that parsing of a range fails if the years are not ordered properly."""
+    regex = r"is greater than"
+
+    with self.assertRaisesRegex(ValueError, regex):
+      Range.parse("2015-2012")
+
+
 if __name__ == "__main__":
   main()
