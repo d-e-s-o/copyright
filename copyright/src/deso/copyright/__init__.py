@@ -24,4 +24,5 @@ from deso.copyright.range import (
 )
 from deso.copyright.ranges import (
   normalizeRanges,
+  parseRanges,
 )

@@ -21,6 +21,7 @@
 
 from deso.copyright import (
   normalizeRanges,
+  parseRanges,
   Range,
 )
 from unittest import (
@@ -75,6 +76,38 @@ class TestRanges(TestCase):
             Range(2012, 2012),
             Range(1995, 2014),
             Range(2015, 2015)], [Range(1995, 2015)])
+
+
+  def testParseRanges(self):
+    """Test the parsing functionality for sequences of ranges."""
+    def doTest(rangesString, expected):
+      """Parse a string of ranges and compare the results against the expected one."""
+      ranges = parseRanges(rangesString)
+      self.assertEqual(ranges, expected)
+
+    doTest("2015", [Range(2015, 2015)])
+    doTest("2014 -2015", [Range(2014, 2015)])
+    doTest("2013- 2015", [Range(2013, 2015)])
+    doTest("2012-2015", [Range(2012, 2015)])
+    doTest("2014,2015", [Range(2014, 2014), Range(2015, 2015)])
+    doTest("2013 , \t2015", [Range(2013, 2013), Range(2015, 2015)])
+    doTest("2015, 2013,2014 ", [Range(2015, 2015),
+                                Range(2013, 2013),
+                                Range(2014, 2014)])
+    doTest("2013-2015,2011-2013", [Range(2013, 2015), Range(2011, 2013)])
+
+
+  def testParseRangesFailures(self):
+    """Negative test for the range sequence parsing functionality."""
+    def doTest(rangesString):
+      """Check that parsing invalid ranges causes expected failures."""
+      with self.assertRaises(ValueError):
+        parseRanges(rangesString)
+
+    doTest("2o15")
+    doTest("2015-2011")
+    doTest("2013x2014")
+    doTest("2012_2013")
 
 
 if __name__ == "__main__":

@@ -24,6 +24,19 @@ from deso.copyright.range import (
 )
 
 
+# The character separating two ranges from each other.
+RANGES_SEPARATOR = ","
+
+
+def parseRanges(ranges_string):
+  """Parse a range string into a sequence of Range objects."""
+  # We want to be very permissive with respect to whitespaces between
+  # the individual years/ranges, so strip each supposed range string
+  # before trying to parse it.
+  ranges_string_list = map(str.strip, ranges_string.split(RANGES_SEPARATOR))
+  return list(map(Range.parse, ranges_string_list))
+
+
 def normalizeRanges(ranges):
   """Normalize a list of Range objects in-place.
 
