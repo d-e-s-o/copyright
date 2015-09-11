@@ -22,3 +22,6 @@
 from deso.copyright.range import (
   Range,
 )
+from deso.copyright.ranges import (
+  normalizeRanges,
+)

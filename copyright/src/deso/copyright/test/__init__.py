@@ -32,6 +32,7 @@ def allTests():
   """Retrieve a test suite containing all tests."""
   tests = [
     "testRange.py",
+    "testRanges.py",
   ]
 
   loader = TestLoader()
