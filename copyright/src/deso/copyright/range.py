@@ -47,3 +47,8 @@ class Range(namedtuple("Range", ["first", "last"])):
       return "%d" % self.first
     else:
       return "%d-%d" % self
+
+
+  def __contains__(self, year):
+    """Check whether a year is contained in a range."""
+    return self.first <= year and year <= self.last

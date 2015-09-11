@@ -54,5 +54,19 @@ class TestRange(TestCase):
     self.assertEqual(str(Range(2013, 2015)), "2013-2015")
 
 
+  def testContainmentOfYears(self):
+    """Test for the "contains" functionality of a range."""
+    self.assertTrue(2014 in Range(2014, 2014))
+    self.assertTrue(2014 in Range(2014, 2015))
+    self.assertTrue(2014 in Range(2013, 2015))
+
+
+  def testExclusionOfYears(self):
+    """Negative test for the "contains" functionality of a range."""
+    self.assertFalse(2015 in Range(2014, 2014))
+    self.assertFalse(2013 in Range(2014, 2015))
+    self.assertFalse(2016 in Range(2013, 2015))
+
+
 if __name__ == "__main__":
   main()
