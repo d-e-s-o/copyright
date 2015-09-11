@@ -39,3 +39,11 @@ class Range(namedtuple("Range", ["first", "last"])):
       raise ValueError(error)
 
     return tuple.__new__(cls, (first, last))
+
+
+  def __str__(self):
+    """Convert a range into a string."""
+    if self.first == self.last:
+      return "%d" % self.first
+    else:
+      return "%d-%d" % self

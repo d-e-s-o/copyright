@@ -47,5 +47,12 @@ class TestRange(TestCase):
       Range(first, last)
 
 
+  def testConversionIntoString(self):
+    """Test for the conversion of a range into a string."""
+    self.assertEqual(str(Range(2015, 2015)), "2015")
+    self.assertEqual(str(Range(2014, 2015)), "2014-2015")
+    self.assertEqual(str(Range(2013, 2015)), "2013-2015")
+
+
 if __name__ == "__main__":
   main()
