@@ -58,6 +58,11 @@ class Range(namedtuple("Range", ["first", "last"])):
     return self.first <= year and year <= self.last
 
 
+  def __compare__(self, range_):
+    """Compare two ranges."""
+    return self.first - range_.first or self.last - range_.last
+
+
   def extendedBy(self, year):
     """Check whether a year extends a given range.
 

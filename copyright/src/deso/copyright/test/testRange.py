@@ -111,5 +111,17 @@ class TestRange(TestCase):
       Range.parse("2015-2012")
 
 
+  def testRangeComparison(self):
+    """Verify that comparison of two ranges works properly."""
+    self.assertLess(Range(2014, 2014), Range(2015, 2015))
+    self.assertLess(Range(2013, 2014), Range(2014, 2015))
+
+    self.assertEqual(Range(2013, 2013), Range(2013, 2013))
+    self.assertEqual(Range(2014, 2015), Range(2014, 2015))
+
+    self.assertNotEqual(Range(2013, 2014), Range(2013, 2015))
+    self.assertNotEqual(Range(2012, 2014), Range(2013, 2014))
+
+
 if __name__ == "__main__":
   main()
