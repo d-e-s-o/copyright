@@ -1,7 +1,7 @@
 # normalize.py
 
 #/***************************************************************************
-# *   Copyright (C) 2015 Daniel Mueller (deso@posteo.net)                   *
+# *   Copyright (C) 2015-2016 Daniel Mueller (deso@posteo.net)              *
 # *                                                                         *
 # *   This program is free software: you can redistribute it and/or modify  *
 # *   it under the terms of the GNU General Public License as published by  *
@@ -57,8 +57,9 @@ TWO_SPACES_RE = regex(r"  ")
 YEAR_R = r"[0-9]+"
 YEAR_SEP_R = escape(YEAR_SEPARATOR)
 RANGES_SEP_R = escape(RANGES_SEPARATOR)
-# A regular expression string representing copyright years.
-CYEARS = r"{y}(?:\s*[{s1}{s2}]\s*{y})*"
+# A regular expression string representing copyright years. Note that we
+# consume any trailing range separators here silently.
+CYEARS = r"{y}(?:\s*[{s1}{s2}]\s*{y})*{s2}*"
 CYEARS_R = CYEARS.format(y=YEAR_R, s1=YEAR_SEP_R, s2=RANGES_SEP_R)
 PREFIX = r"copyright(?:{a}(?!{c}))*{a}"
 PREFIX_R = PREFIX.format(a=ANY_R, c=CYEARS_R)
